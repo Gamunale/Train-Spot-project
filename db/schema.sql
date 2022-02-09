@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS Train_Spot_db;
+
+CREATE DATABASE Tain_Spot_db;
