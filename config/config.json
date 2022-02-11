@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Q1w3$2x5@t",
+    "database": "train_spot_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Q1w3$2x5@t",
+    "database": "train_spot_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Q1w3$2x5@t",
+    "database": "train_spot_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,31 +1,54 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 
-class User extends Model {}
-
-User.init({
-    
-    email:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
     },
-    password:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        validate:{
-            len:[8]
-        }
-    }
-},{
-    sequelize,
-    hooks:{
-        beforeCreate:userData=>{
-            userData.password = bcrypt.hashSync(userData.password,5)
-            return userData
-        }
-    }
-});
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  });
 
-module.exports=User
+  User.associate = function ({ AuthToken }) {
+    User.hasMany(AuthToken);
+  };
+
+  User.authenticate = async function(username, password) {
+
+    const user = await User.findOne({ where: { username } });
+
+    if (bcrypt.compareSync(password, user.password)) {
+      return user.authorize();
+    }
+
+    throw new Error('invalid password');
+  }
+
+  User.prototype.authorize = async function () {
+    const { AuthToken } = sequelize.models;
+    const user = this
+
+    const authToken = await AuthToken.generate(this.id);
+
+    await user.addAuthToken(authToken);
+
+    return { user, authToken }
+  };
+
+
+  User.prototype.logout = async function (token) {
+
+    sequelize.models.AuthToken.destroy({ where: { token } });
+  };
+
+  return User;
+};
