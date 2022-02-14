@@ -1,31 +1,23 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
 const bcrypt = require("bcrypt");
 
-class User extends Model {}
-
-User.init({
-    
-    email:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true
-    },
-    password:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        validate:{
-            len:[8]
-        }
+module.exports = function(sequelize, DataTypes) {
+    var User = sequelize.define("User", {
+      
+      name:DataTypes.STRING,
+      email:{
+          type:DataTypes.STRING,
+          unique:true,
+          allowNull:false
+      },
+      password:DataTypes.STRING
+    });
+  
+    User.beforeCreate(function(user){
+        user.password = bcrypt.hashSync(user.password,bcrypt.genSaltSync(10),null);
+    })
+    User.associate = function(models){
+        User.hasMany(models.Blog)
     }
-},{
-    sequelize,
-    hooks:{
-        beforeCreate:userData=>{
-            userData.password = bcrypt.hashSync(userData.password,5)
-            return userData
-        }
-    }
-});
-
-module.exports=User
+  
+    return User;
+  };
