@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/config');
 
 class Train extends Model {}
@@ -32,4 +32,4 @@ Train.init(
       }  
 );
 
-module.exports = Train;
+module.exports = Train

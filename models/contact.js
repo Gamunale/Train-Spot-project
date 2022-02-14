@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/config');
 
 class Contact extends Model {}
@@ -22,4 +22,4 @@ Contact.init(
     }   
 );
 
-module.exports = Contact;
+module.exports = Contact
