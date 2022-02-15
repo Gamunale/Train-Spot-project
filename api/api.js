@@ -1,6 +1,6 @@
 fetch('http://api.bart.gov/api/etd.aspx?cmd=etd&orig=12th&key=MW9S-E7SL-26DU-VV8V&json=y')
-.then(response => response.json())
-.then(data => console.log(data));
+    .then(response => response.json())
+    .then(data => console.log(data));
 
 
 
