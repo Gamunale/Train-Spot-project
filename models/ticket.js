@@ -1,5 +1,5 @@
 const {Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/connection');
 
 class Ticket extends Model {}
 
@@ -9,27 +9,24 @@ Ticket.init(
         type: DataTypes.STRING,
         allowNull: false
       },
-      ticket_no: {
-        type: DataTypes.STRING,
+      ticketNo: {
+        type: DataTypes.INTEGER,
         allowNull: false,
        
       },
-      seat_no: {
-        type: DataTypes.STRING,
+      seatNo: {
+        type: DataTypes.INTEGER,
         allowNull: false,
        
       },
-      date_of_travel: {
-        type: DataTypes.STRING,
+      dateOfTravel: {
+        type: DataTypes.DATE,
         allowNull: false,
        
       }
     },  
     {
         sequelize,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'ticket',
       }  
 );
 
