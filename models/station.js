@@ -1,30 +1,27 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/connection');
 
 class Station extends Model {}
 
 Station.init(
   {
-    station_name: {
+    stationName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      arival_time: {
-        type: DataTypes.STRING,
+      arivalTime: {
+        type: DataTypes.TIME,
         allowNull: false,
        
       },
-      departure_time: {
-        type: DataTypes.STRING,
+      departureTime: {
+        type: DataTypes.TIME,
         allowNull: false,
        
       }
     },  
     {
         sequelize,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'station',
       }  
 );
 

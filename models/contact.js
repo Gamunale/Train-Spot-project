@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/connection');
 
 class Contact extends Model {}
 
@@ -10,15 +10,12 @@ Contact.init(
         allowNull: false
       },
      phone_no: {
-       type: Datatypes.String,
+       type: DataTypes.INTEGER,
        allowNull: false
      }
     }, 
     {
       sequelize,
-      freezeTableName: true,
-      underscored: true,
-      modelName: 'contact',
     }   
 );
 

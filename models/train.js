@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/connection');
 
 class Train extends Model {}
 
@@ -9,13 +9,13 @@ Train.init(
         type: DataTypes.STRING,
         allowNull: false
       },
-      train_no: {
-        type: DataTypes.STRING,
+      trainNo: {
+        type: DataTypes.INTEGER,
         allowNull: false,
        
       },
-      seat_no: {
-        type: DataTypes.STRING,
+      seatNo: {
+        type: DataTypes.INTEGER,
         allowNull: false,
        
       },
@@ -26,9 +26,6 @@ Train.init(
     },  
     {
         sequelize,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'train',
       }  
 );
 
